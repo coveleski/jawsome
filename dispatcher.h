@@ -6,9 +6,10 @@
 
  class Task{
 	public:
+		Task(int pri, ucontext_t *con);
 		int priority;
-		time_t time;
-		ucontext_t context;
+		time_t ready_time;
+		ucontext_t *context;
 	
 };
 
