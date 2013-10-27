@@ -62,7 +62,7 @@ int schedule(void *p){
 		d->cur_klt--;
 		//make sure the mutex gets unlocked
 		pthread_mutex_unlock(&dispatcher_mutex);
-		return;
+		return 0;
 	}
 }
 
