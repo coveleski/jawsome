@@ -1,4 +1,10 @@
-#include <ucontext.h>
+/**
+* Authored by David Vriezen
+* 27 October, 2013
+* Com S 352 Project 1
+*/
+
+
 #include <queue>
 #include <vector>
 #include <time.h>

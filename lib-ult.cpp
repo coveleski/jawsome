@@ -1,3 +1,10 @@
+/**
+* Authored by David Vriezen
+* 27 October, 2013
+* Com S 352 Project 1
+*/
+
+
 #include "dispatcher.h"
 #include <pthread.h>
 #include <sched.h>
