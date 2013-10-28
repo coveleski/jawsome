@@ -31,8 +31,6 @@ Dispatcher *d;
 Gets the next task from the priority queue and schedules it
 */
 int schedule(void *p){
-	//erase me
-	fprintf(stderr, "%s\n", "i'm in schedule!");
 	//get this threads id
 	pthread_t tid = pthread_self();
 	//initialize a ucontext_t for my current context
@@ -50,18 +48,11 @@ int schedule(void *p){
 		//pop a task and set the context to it's context
 		Task task = d->pq.top();
 		d->pq.pop();
-
 		pthread_mutex_unlock(&dispatcher_mutex);
-		//erase me
-		// ucontext_t context = task.context;
-		// free(task.context);
 
 		//set uc_link for the task, so it returns to schedule
 		task.context->uc_link = &me;
-		//erase me
-		fprintf(stderr, "%s\n", "jumping");
-
-
+		//set new context
 		setcontext(task.context);
 	} else {
 		//no tasks left, the clone will die
@@ -84,13 +75,8 @@ void system_init(int max_number_of_klt){
 	//init mutexes
 	pthread_mutex_init(&map_mutex, NULL);
 	pthread_mutex_init(&dispatcher_mutex, NULL);
-
-	//erase me
-	// getcontext(&me);
-
 	//make a new dispatcher to deal with the user threads
 	d = new Dispatcher(max_number_of_klt);
-
 	return;
 }
 
@@ -129,7 +115,7 @@ int uthread_create(void func(), int pri_num){
 		pthread_mutex_unlock(&dispatcher_mutex);
 
 		//new kthread, running schedule()
-		if (clone(schedule, child_stack_one, CLONE_VM, NULL)){
+		if (clone(schedule, child_stack_one, CLONE_VM, NULL) > 0){
 			//if clone succeeds, return 0
 			return 0;
 		} else {
